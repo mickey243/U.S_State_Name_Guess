@@ -17,6 +17,14 @@ while len(total_correct_states) < total_states_count:
         title=f"Guess the State {len(total_correct_states)}/{total_states_count}",
         prompt="What's another state's name?",
     )
+    if input_state.lower() == "exit":
+        missing_state = [
+            state for state in total_states if state not in total_correct_states
+        ]
+        missing_state_data = panda.DataFrame(missing_state)
+        missing_state_data.to_csv("missing_states.csv")
+
+        break
     if len(input_state) > 0:
         for i in range(total_states_count):
             current_state_name = total_states[i]
@@ -33,4 +41,4 @@ while len(total_correct_states) < total_states_count:
                 t.pendown()
 
 
-turtle.mainloop()
+# turtle.mainloop()
